@@ -1,5 +1,4 @@
 import Filme from "./Filme";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 
 export default function Filmes( ){

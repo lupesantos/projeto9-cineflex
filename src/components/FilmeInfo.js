@@ -5,7 +5,7 @@ export default function FilmeInfo(){
         <>
         <h1 className="selecione">Selecione o horário</h1>
         <div className="horarioDia">
-            <p>Quinta-fiera - 24/06/2022</p> {/* tem que vir de API */}
+            <p>Quinta-feira - 24/06/2022</p> {/* tem que vir de API */}
             <div className="hora">
                 <Link to="/lugares">
                     

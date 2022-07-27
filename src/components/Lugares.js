@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Lugares(){
     return (
         <div>
@@ -34,6 +36,45 @@ export default function Lugares(){
                     10
                 </div>
             </div>
+
+            <div className="statusLugares">
+                <div className="status">
+                    <div className="assentos selecionado"></div>
+                    <p>Selecionado</p>
+                </div>
+                <div className="status">
+                    <div className="assentos"></div>
+                    <p>Disponível</p>
+                </div>
+                <div className="status">
+                    <div className="assentos indisponivel"></div>
+                    <p>Indisponível</p>
+                </div>           
+            </div>
+
+            <div className="dadosComprador">
+                <p>Nome do Comprador:</p>
+                <input type="text" placeholder="Digite seu nome..."/>
+                <p>CPF do Comprador:</p> 
+                <input type="text" placeholder="Digite seu CPF..."/>
+            </div>
+
+            <div className="reservar">
+                <Link to="/resumo">
+                <p>Resevar assento(s)</p>
+                </Link>  
+            </div>
+
+            <div className="filmeFooter">
+                <div className="filmeFooterCartaz">
+                    <img src="https://image.tmdb.org/t/p/w500/7D430eqZj8y3oVkLFfsWXGRcpEG.jpg" /> {/* tem que vir de API */}
+                </div>  
+                <div className="infoFooter">
+                    <p>Enola Holmes</p>
+                    <p>Quinta-feira - 15:00</p> {/* tem que vir de API */}
+                </div>
+            </div>
+
         </div>
     )
 }

@@ -7,6 +7,8 @@ import Filmes from "./Filmes";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import FilmeInfo from "./FilmeInfo";
 import Lugares from "./Lugares";
+import Resumo from "./Resumo";
+
 
 
 
@@ -20,6 +22,7 @@ function App()
                     <Route path="/" element={<Filmes />}/>
                     <Route path="/filme" element={<FilmeInfo />}/>
                     <Route path="/lugares" element={<Lugares />}/>
+                    <Route path="/resumo" element={<Resumo />}/>
  
                 </Routes>
             </BrowserRouter>
