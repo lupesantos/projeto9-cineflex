@@ -1,44 +1,45 @@
 import { Link } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import DiaHorario from "./DiaHorario";
+import axios from 'axios';
 
 export default function FilmeInfo(){
+
+  const iDfilme = useParams();
+
+const [filme, setFilme] = useState([]);
+
+    useEffect(()=>{
+
+        const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${iDfilme.iDfilme}/showtimes`);
+
+        requisicao.then(resposta => {
+            setFilme(resposta.data)
+        });
+   
+      },[]);
+
+console.log(filme);
+console.log(filme.days);
+
     return(
         <>
-        <h1 className="selecione">Selecione o horário</h1>
-        <div className="horarioDia">
-            <p>Quinta-feira - 24/06/2022</p> {/* tem que vir de API */}
-            <div className="hora">
-                <Link to="/lugares">
-                    
-                  <div className="horarioFilme"> 
-                    15:00 {/* tem que vir de API */} 
-                  </div>  
-                </Link>
-              
-              <div className="horarioFilme">
-                19:00 {/* tem que vir de API */}
-              </div>
-            </div>
-        </div>
-
-        <div className="horarioDia">
-            <p>Sexta-feira - 25/06/2021</p>
-            <div className="hora">
-              <div className="horarioFilme">
-                15:00
-              </div>
-              <div className="horarioFilme">
-                19:00
-              </div>
-            </div>
-        </div>
-        
+        {filme.length === 0  ? (<h1>oi</h1>) :  (filme.days.map((item, index) => <DiaHorario
+          key={index} 
+          weekday={item.weekday}
+          date={item.date}
+          showtimes={item.showtimes}
+          />))}
         <div className="filmeFooter">
           <div className="filmeFooterCartaz">
-            <img src="https://image.tmdb.org/t/p/w500/7D430eqZj8y3oVkLFfsWXGRcpEG.jpg" /> {/* tem que vir de API */}
+            <img src={filme.posterURL} /> 
           </div>
-          <p>Enola Holmes</p> {/* tem que vir de API */}
+          <p>{filme.title}</p> 
         </div>
+
         </>
           )
-
 }
+
+

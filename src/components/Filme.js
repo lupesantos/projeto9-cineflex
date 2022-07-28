@@ -4,8 +4,7 @@ export default function Filme({ index,id, posterURL}){
     return(
         <div className="filme">
             
-            {/* <Link to={`/filme/${id}`}> */}
-            <Link to="/filme">
+            <Link to={`/filme/${id}`}>
             <img src={posterURL} />
             </Link>
         </div>

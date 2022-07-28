@@ -20,7 +20,7 @@ function App()
                 <Header />
                 <Routes>
                     <Route path="/" element={<Filmes />}/>
-                    <Route path="/filme" element={<FilmeInfo />}/>
+                    <Route path="/filme/:iDfilme" element={<FilmeInfo />}/>
                     <Route path="/lugares" element={<Lugares />}/>
                     <Route path="/resumo" element={<Resumo />}/>
  
