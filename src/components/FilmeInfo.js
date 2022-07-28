@@ -1,45 +1,49 @@
-import { Link } from "react-router-dom";
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import DiaHorario from "./DiaHorario";
-import axios from 'axios';
+import axios from "axios";
 
-export default function FilmeInfo(){
+export default function FilmeInfo() {
+	const { iDfilme } = useParams();
 
-  const iDfilme = useParams();
+	const [filme, setFilme] = useState([]);
 
-const [filme, setFilme] = useState([]);
+	useEffect(() => {
+		const requisicao = axios.get(
+			`https://mock-api.driven.com.br/api/v7/cineflex/movies/${iDfilme}/showtimes`
+		);
 
-    useEffect(()=>{
+		requisicao.then((resposta) => {
+			setFilme(resposta.data);
+		});
+	}, []);
 
-        const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${iDfilme.iDfilme}/showtimes`);
+	// console.log(filme);
+	// console.log(filme.days);
 
-        requisicao.then(resposta => {
-            setFilme(resposta.data)
-        });
-   
-      },[]);
+	return (
+		<>
+			<h1 className="selecione">Selecione o horário</h1>
 
-console.log(filme);
-console.log(filme.days);
+			{filme.length === 0 ? (
+				<h1>oi</h1>
+			) : (
+				filme.days.map((item, index) => (
+					<DiaHorario
+						key={index}
+						weekday={item.weekday}
+						date={item.date}
+						showtimes={item.showtimes}
+					/>
+				))
+			)}
 
-    return(
-        <>
-        {filme.length === 0  ? (<h1>oi</h1>) :  (filme.days.map((item, index) => <DiaHorario
-          key={index} 
-          weekday={item.weekday}
-          date={item.date}
-          showtimes={item.showtimes}
-          />))}
-        <div className="filmeFooter">
-          <div className="filmeFooterCartaz">
-            <img src={filme.posterURL} /> 
-          </div>
-          <p>{filme.title}</p> 
-        </div>
-
-        </>
-          )
+			<div className="filmeFooter">
+				<div className="filmeFooterCartaz">
+					<img src={filme.posterURL} alt="oi" />
+				</div>
+				<p>{filme.title}</p>
+			</div>
+		</>
+	);
 }
-
-

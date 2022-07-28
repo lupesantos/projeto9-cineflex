@@ -1,39 +1,21 @@
 import { Link } from "react-router-dom";
 
-export default function DiaHorario({weekday, date, showtimes}){
-    
-return (
+export default function DiaHorario({ weekday, date, showtimes }) {
+	return (
+		<div className="horarioDia">
+			<p>
+				{weekday} - {date}
+			</p>
 
-        <div className="horarioDia">
-            <p>{weekday} - {date}</p> {/* tem que vir de API */}
+			<div className="hora">
+				<Link to={`/sessao/${showtimes[0].id}`}>
+					<div className="horarioFilme">{showtimes[0].name}</div>
+				</Link>
 
-            <div className="hora">
-                <Link to="/lugares">
-                    
-                  <div className="horarioFilme"> 
-                    {showtimes[0].name} {/* tem que vir de API */} 
-                  </div>  
-                </Link>
-              
-              <div className="horarioFilme">
-                {showtimes[1].name} {/* tem que vir de API */}
-              </div>
-            </div>
-
-
-            
-            
-        </div>
-
-)
-
+				<Link to={`/sessao/${showtimes[1].id}`}>
+					<div className="horarioFilme">{showtimes[1].name}</div>
+				</Link>
+			</div>
+		</div>
+	);
 }
-
-
-
-
-
-
-
-
-
