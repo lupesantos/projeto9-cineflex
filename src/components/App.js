@@ -9,6 +9,9 @@ import Lugares from "./Lugares";
 import Resumo from "./Resumo";
 
 function App() {
+	const [lugares, setLugares] = React.useState([]);
+	const [objPost, setObjPost] = React.useState({});
+
 	return (
 		<div className="main">
 			<BrowserRouter>
@@ -16,8 +19,26 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Filmes />} />
 					<Route path="/filme/:iDfilme" element={<FilmeInfo />} />
-					<Route path="/sessao/:iDsessao" element={<Lugares />} />
-					<Route path="/resumo" element={<Resumo />} />
+					<Route
+						path="/sessao/:iDsessao"
+						element={
+							<Lugares
+								lugares={lugares}
+								setLugares={setLugares}
+								setObjPost={setObjPost}
+							/>
+						}
+					/>
+					<Route
+						path="/resumo"
+						element={
+							<Resumo
+								lugares={lugares}
+								objPost={objPost}
+								setObjPost={setObjPost}
+							/>
+						}
+					/>
 				</Routes>
 			</BrowserRouter>
 		</div>

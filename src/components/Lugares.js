@@ -1,13 +1,47 @@
-import { Link } from "react-router-dom";
 import Assento from "./Assento";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Lugares() {
+export default function Lugares({ lugares, setLugares, setObjPost }) {
 	const { iDsessao } = useParams();
-	const [lugares, setLugares] = useState([]);
 	const [clicado, setClicado] = useState([]);
+
+	const [nome, setNome] = useState("");
+	const [cpf, setCpf] = useState("");
+
+	const navigate = useNavigate();
+
+	console.log(iDsessao);
+
+	function fazerPost(event) {
+		event.preventDefault();
+
+		const teste = {
+			ids: clicado,
+			name: nome,
+			cpf: cpf,
+		};
+
+		// setObjPost((objPost) => ({ //funciona 1
+		// 	...objPost,
+		// 	...teste,
+		// }));
+
+		setObjPost({ ...teste, iDsessao });
+
+		const requisicao2 = axios.post(
+			"https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many",
+			{
+				ids: clicado,
+				name: nome,
+				cpf: cpf,
+			}
+		);
+
+		navigate("/resumo");
+	}
 
 	useEffect(() => {
 		let isMounted = true;
@@ -60,18 +94,25 @@ export default function Lugares() {
 				</div>
 			</div>
 
-			<div className="dadosComprador">
-				<p>Nome do Comprador:</p>
-				<input type="text" placeholder="Digite seu nome..." />
-				<p>CPF do Comprador:</p>
-				<input type="text" placeholder="Digite seu CPF..." />
-			</div>
-
-			<div className="reservar">
-				<Link to="/resumo">
-					<p>Resevar assento(s)</p>
-				</Link>
-			</div>
+			<form onSubmit={fazerPost}>
+				<div className="dadosComprador">
+					<p>Nome do Comprador:</p>
+					<input
+						type="text"
+						value={nome}
+						onChange={(e) => setNome(e.target.value)}
+						placeholder="Digite seu nome..."
+					/>
+					<p>CPF do Comprador:</p>
+					<input
+						type="text"
+						value={cpf}
+						onChange={(e) => setCpf(e.target.value)}
+						placeholder="Digite seu CPF..."
+					/>
+					<button type="submit">Reservar assento(s)</button>
+				</div>
+			</form>
 
 			<div className="filmeFooter">
 				{lugares.length === 0 ? (
@@ -80,15 +121,13 @@ export default function Lugares() {
 					<>
 						<div className="filmeFooterCartaz">
 							<img src={lugares.movie.posterURL} alt="oi" />{" "}
-							{/* tem que vir de API */}
 						</div>
 
 						<div className="infoFooter">
 							<p>{lugares.movie.title}</p>
 							<p>
-								{lugares.day.weekday} - {lugares.name}
+								{lugares.day.weekday} - {lugares.name}h
 							</p>{" "}
-							{/* tem que vir de API */}
 						</div>
 					</>
 				)}

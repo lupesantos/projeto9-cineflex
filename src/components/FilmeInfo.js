@@ -16,10 +16,7 @@ export default function FilmeInfo() {
 		requisicao.then((resposta) => {
 			setFilme(resposta.data);
 		});
-	}, []);
-
-	// console.log(filme);
-	// console.log(filme.days);
+	}, [iDfilme]);
 
 	return (
 		<>

@@ -9,7 +9,6 @@ export default function Assento({
 	setClicado,
 }) {
 	const [reservei, setReservei] = React.useState("");
-	let ar = [...clicado];
 
 	function reserva() {
 		if (reservei === "") {
@@ -21,7 +20,6 @@ export default function Assento({
 		}
 	}
 
-	console.log(clicado);
 	function reservado() {
 		alert("Este lugar está indisponível!");
 	}

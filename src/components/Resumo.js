@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import Cadeira from "./Cadeira";
 
-export default function Resumo() {
+export default function Resumo({ lugares, objPost }) {
+	console.log(objPost);
+	let teste = objPost.iDsessao;
 	return (
 		<div className="resumo">
 			<div className="resumoCompraFilme">
@@ -8,16 +11,20 @@ export default function Resumo() {
 			</div>
 
 			<h1>Filme e sessão</h1>
-			<p>Enola Holmes</p>
-			<p>24/06/2022 - 15:00</p>
+			<p>{lugares.movie.title}</p>
+			<p>
+				{lugares.day.weekday} - {lugares.name}h
+			</p>
 
 			<h1>Ingressos</h1>
-			<p>Assento 15</p>
-			<p>Assento 16</p>
+
+			{objPost.ids.map((item, index) => (
+				<Cadeira key={index} cadeira={item} id={teste} />
+			))}
 
 			<h1>Comprador</h1>
-			<p>Nome: Luciano Pereira dos Santos</p>
-			<p>CPF: 359.042.448-60</p>
+			<p>Nome: {objPost.name}</p>
+			<p>CPF: {objPost.cpf}</p>
 
 			<div className="reservar">
 				<Link to="/">
