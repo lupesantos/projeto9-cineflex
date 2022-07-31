@@ -2,10 +2,11 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import DiaHorario from "./DiaHorario";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function FilmeInfo() {
 	const { iDfilme } = useParams();
-
+	const navigate = useNavigate();
 	const [filme, setFilme] = useState([]);
 
 	useEffect(() => {
@@ -18,12 +19,17 @@ export default function FilmeInfo() {
 		});
 	}, [iDfilme]);
 
+	function back(event) {
+		event.preventDefault();
+		navigate("/");
+	}
+
 	return (
 		<>
 			<h1 className="selecione">Selecione o horário</h1>
 
 			{filme.length === 0 ? (
-				<h1>oi</h1>
+				<h1>Carregando...</h1>
 			) : (
 				filme.days.map((item, index) => (
 					<DiaHorario
@@ -34,6 +40,10 @@ export default function FilmeInfo() {
 					/>
 				))
 			)}
+
+			<div onClick={back} className="voltaPagina">
+				<p>back</p>
+			</div>
 
 			<div className="filmeFooter">
 				<div className="filmeFooterCartaz">

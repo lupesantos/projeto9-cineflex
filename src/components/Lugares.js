@@ -4,16 +4,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Lugares({ lugares, setLugares, setObjPost }) {
+export default function Lugares({
+	lugares,
+	setLugares,
+	setObjPost,
+	backFilme,
+}) {
 	const { iDsessao } = useParams();
 	const [clicado, setClicado] = useState([]);
-
 	const [nome, setNome] = useState("");
 	const [cpf, setCpf] = useState("");
-
 	const navigate = useNavigate();
-
-	console.log(iDsessao);
 
 	function fazerPost(event) {
 		event.preventDefault();
@@ -23,11 +24,6 @@ export default function Lugares({ lugares, setLugares, setObjPost }) {
 			name: nome,
 			cpf: cpf,
 		};
-
-		// setObjPost((objPost) => ({ //funciona 1
-		// 	...objPost,
-		// 	...teste,
-		// }));
 
 		setObjPost({ ...teste, iDsessao });
 
@@ -41,6 +37,11 @@ export default function Lugares({ lugares, setLugares, setObjPost }) {
 		);
 
 		navigate("/resumo");
+	}
+
+	function back(event) {
+		event.preventDefault();
+		navigate(`/filme/${backFilme}`);
 	}
 
 	useEffect(() => {
@@ -57,7 +58,7 @@ export default function Lugares({ lugares, setLugares, setObjPost }) {
 		return () => {
 			isMounted = false;
 		};
-	}, []);
+	}, [iDsessao]);
 
 	return (
 		<div>
@@ -113,6 +114,10 @@ export default function Lugares({ lugares, setLugares, setObjPost }) {
 					<button type="submit">Reservar assento(s)</button>
 				</div>
 			</form>
+
+			<div onClick={back} className="voltaPagina">
+				<p>back</p>
+			</div>
 
 			<div className="filmeFooter">
 				{lugares.length === 0 ? (

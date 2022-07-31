@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import Cadeira from "./Cadeira";
+import { useNavigate } from "react-router-dom";
 
 export default function Resumo({ lugares, objPost }) {
-	console.log(objPost);
 	let teste = objPost.iDsessao;
+	const navigate = useNavigate();
+
+	function back(event) {
+		event.preventDefault();
+		navigate(`/sessao/${lugares.id}`);
+	}
+
 	return (
 		<div className="resumo">
 			<div className="resumoCompraFilme">
@@ -30,6 +37,10 @@ export default function Resumo({ lugares, objPost }) {
 				<Link to="/">
 					<p>Voltar para Home</p>
 				</Link>
+			</div>
+
+			<div onClick={back} className="voltaPagina">
+				<p>back</p>
 			</div>
 		</div>
 	);

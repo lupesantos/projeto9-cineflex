@@ -11,18 +11,20 @@ import Resumo from "./Resumo";
 function App() {
 	const [lugares, setLugares] = React.useState([]);
 	const [objPost, setObjPost] = React.useState({});
+	const [backFilme, setBackFilme] = React.useState("");
 
 	return (
 		<div className="main">
 			<BrowserRouter>
 				<Header />
 				<Routes>
-					<Route path="/" element={<Filmes />} />
+					<Route path="/" element={<Filmes setBackFilme={setBackFilme} />} />
 					<Route path="/filme/:iDfilme" element={<FilmeInfo />} />
 					<Route
 						path="/sessao/:iDsessao"
 						element={
 							<Lugares
+								backFilme={backFilme}
 								lugares={lugares}
 								setLugares={setLugares}
 								setObjPost={setObjPost}

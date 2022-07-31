@@ -2,7 +2,7 @@ import Filme from "./Filme";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-export default function Filmes() {
+export default function Filmes({ backFilme, setBackFilme }) {
 	const [filmes, setFilmes] = useState([]);
 
 	useEffect(() => {
@@ -20,7 +20,13 @@ export default function Filmes() {
 			<h1 className="selecione">Selecione o filme</h1>
 
 			{filmes.map((item, index) => (
-				<Filme key={index} id={item.id} posterURL={item.posterURL} />
+				<Filme
+					key={index}
+					id={item.id}
+					posterURL={item.posterURL}
+					backFilme={backFilme}
+					setBackFilme={setBackFilme}
+				/>
 			))}
 		</div>
 	);
